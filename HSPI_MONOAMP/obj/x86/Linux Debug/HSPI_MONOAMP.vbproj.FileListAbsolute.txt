@@ -1,0 +1,3 @@
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\obj\x86\Linux Debug\HSPI_MONOAMP.vbprojResolveAssemblyReference.cache
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\obj\x86\Linux Debug\HSPI_MONOAMP.Resources.resources
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\obj\x86\Linux Debug\HSPI_MONOAMP.vbproj.GenerateResource.Cache

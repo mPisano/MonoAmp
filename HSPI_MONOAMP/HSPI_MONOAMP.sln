@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "HSPI_MONOAMP", "HSPI_MONOAMP.vbproj", "{64189C38-D99C-4799-9C63-1E7AD7A83F5A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Linux Debug|Any CPU = Linux Debug|Any CPU
+		Linux Debug|x86 = Linux Debug|x86
+		Linux Release|Any CPU = Linux Release|Any CPU
+		Linux Release|x86 = Linux Release|x86
+		Linux Zee Debug|Any CPU = Linux Zee Debug|Any CPU
+		Linux Zee Debug|x86 = Linux Zee Debug|x86
+		Linux Zee Release|Any CPU = Linux Zee Release|Any CPU
+		Linux Zee Release|x86 = Linux Zee Release|x86
+		Linux ZeePlus Release|Any CPU = Linux ZeePlus Release|Any CPU
+		Linux ZeePlus Release|x86 = Linux ZeePlus Release|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{64189C38-D99C-4799-9C63-1E7AD7A83F5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64189C38-D99C-4799-9C63-1E7AD7A83F5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64189C38-D99C-4799-9C63-1E7AD7A83F5A}.Debug|x86.ActiveCfg = Debug|x86
+		{64189C38-D99C-4799-9C63-1E7AD7A83F5A}.Debug|x86.Build.0 = Debug|x86
+		{64189C38-D99C-4799-9C63-1E7AD7A83F5A}.Linux Debug|Any CPU.ActiveCfg = Linux Debug|Any CPU
+		{64189C38-D99C-4799-9C63-1E7AD7A83F5A}.Linux Debug|Any CPU.Build.0 = Linux Debug|Any CPU
+		{64189C38-D99C-4799-9C63-1E7AD7A83F5A}.Linux Debug|x86.ActiveCfg = Linux Debug|x86
+		{64189C38-D99C-4799-9C63-1E7AD7A83F5A}.Linux Debug|x86.Build.0 = Linux Debug|x86
+		{64189C38-D99C-4799-9C63-1E7AD7A83F5A}.Linux Release|Any CPU.ActiveCfg = Linux Release|Any CPU
+		{64189C38-D99C-4799-9C63-1E7AD7A83F5A}.Linux Release|Any CPU.Build.0 = Linux Release|Any CPU
+		{64189C38-D99C-4799-9C63-1E7AD7A83F5A}.Linux Release|x86.ActiveCfg = Linux Release|x86
+		{64189C38-D99C-4799-9C63-1E7AD7A83F5A}.Linux Release|x86.Build.0 = Linux Release|x86
+		{64189C38-D99C-4799-9C63-1E7AD7A83F5A}.Linux Zee Debug|Any CPU.ActiveCfg = Linux Zee Debug|Any CPU
+		{64189C38-D99C-4799-9C63-1E7AD7A83F5A}.Linux Zee Debug|Any CPU.Build.0 = Linux Zee Debug|Any CPU
+		{64189C38-D99C-4799-9C63-1E7AD7A83F5A}.Linux Zee Debug|x86.ActiveCfg = Linux Zee Debug|x86
+		{64189C38-D99C-4799-9C63-1E7AD7A83F5A}.Linux Zee Debug|x86.Build.0 = Linux Zee Debug|x86
+		{64189C38-D99C-4799-9C63-1E7AD7A83F5A}.Linux Zee Release|Any CPU.ActiveCfg = Linux Zee Release|Any CPU
+		{64189C38-D99C-4799-9C63-1E7AD7A83F5A}.Linux Zee Release|Any CPU.Build.0 = Linux Zee Release|Any CPU
+		{64189C38-D99C-4799-9C63-1E7AD7A83F5A}.Linux Zee Release|x86.ActiveCfg = Linux Zee Release|x86
+		{64189C38-D99C-4799-9C63-1E7AD7A83F5A}.Linux Zee Release|x86.Build.0 = Linux Zee Release|x86
+		{64189C38-D99C-4799-9C63-1E7AD7A83F5A}.Linux ZeePlus Release|Any CPU.ActiveCfg = Linux ZeePlus Release|Any CPU
+		{64189C38-D99C-4799-9C63-1E7AD7A83F5A}.Linux ZeePlus Release|Any CPU.Build.0 = Linux ZeePlus Release|Any CPU
+		{64189C38-D99C-4799-9C63-1E7AD7A83F5A}.Linux ZeePlus Release|x86.ActiveCfg = Linux ZeePlus Release|x86
+		{64189C38-D99C-4799-9C63-1E7AD7A83F5A}.Linux ZeePlus Release|x86.Build.0 = Linux ZeePlus Release|x86
+		{64189C38-D99C-4799-9C63-1E7AD7A83F5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64189C38-D99C-4799-9C63-1E7AD7A83F5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64189C38-D99C-4799-9C63-1E7AD7A83F5A}.Release|x86.ActiveCfg = Release|x86
+		{64189C38-D99C-4799-9C63-1E7AD7A83F5A}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

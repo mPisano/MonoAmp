@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmpTest", "AmpTest.csproj", "{66FBBA6C-34E4-425A-A407-9E24A94F6966}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmpDll", "..\AmpDll\AmpDll.csproj", "{1BAAB9D4-EBFE-4648-870C-BE17FE90EB9F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{66FBBA6C-34E4-425A-A407-9E24A94F6966}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66FBBA6C-34E4-425A-A407-9E24A94F6966}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66FBBA6C-34E4-425A-A407-9E24A94F6966}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66FBBA6C-34E4-425A-A407-9E24A94F6966}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BAAB9D4-EBFE-4648-870C-BE17FE90EB9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BAAB9D4-EBFE-4648-870C-BE17FE90EB9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BAAB9D4-EBFE-4648-870C-BE17FE90EB9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BAAB9D4-EBFE-4648-870C-BE17FE90EB9F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

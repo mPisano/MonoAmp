@@ -1,0 +1,10 @@
+﻿<script src="./Scripts/jquery-1.11.1.min.js"></script>
+<script src="./host.js"></script>
+<script>
+    if (usewebapi == null)
+        var usewebapi = false;
+    if (usewebapi)
+        window.location = "./webapi.html"
+    else
+        window.location = "./signalr.html"
+</script>

@@ -1,0 +1,29 @@
+C:\Program Files (x86)\HomeSeer HS3\HSPI_MONOAMP.exe.config
+C:\Program Files (x86)\HomeSeer HS3\HSPI_MONOAMP.exe
+C:\Program Files (x86)\HomeSeer HS3\HSPI_MONOAMP.pdb
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\obj\Debug\HSPI_MONOAMP.Resources.resources
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\obj\Debug\HSPI_MONOAMP.vbproj.GenerateResource.Cache
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\obj\Debug\HSPI_MONOAMP.exe
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\obj\Debug\HSPI_MONOAMP.pdb
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\obj\Debug\HSPI_MONOAMP.vbprojResolveAssemblyReference.cache
+C:\Work\Monoprice\AMP_Owin\Build\Debug\HSPI_MONOAMP.exe.config
+C:\Work\Monoprice\AMP_Owin\Build\Debug\HSPI_MONOAMP.exe
+C:\Work\Monoprice\AMP_Owin\Build\Debug\HSPI_MONOAMP.pdb
+C:\Work\MonoAmp\HSPI_MONOAMP\obj\Debug\HSPI_MONOAMP.vbprojResolveAssemblyReference.cache
+C:\Work\MonoAmp\HSPI_MONOAMP\obj\Debug\HSPI_MONOAMP.Resources.resources
+C:\Work\MonoAmp\HSPI_MONOAMP\obj\Debug\HSPI_MONOAMP.vbproj.GenerateResource.Cache
+C:\Work\MonoAmp\HSPI_MONOAMP\obj\Debug\HSPI_MONOAMP.exe
+C:\Work\MonoAmp\HSPI_MONOAMP\obj\Debug\HSPI_MONOAMP.pdb
+C:\Work\MonoAmp\Build\Debug\HSPI_MONOAMP.exe.config
+C:\Work\MonoAmp\Build\Debug\HSPI_MONOAMP.exe
+C:\Work\MonoAmp\Build\Debug\HSPI_MONOAMP.pdb
+C:\Users\Mike\source\repos\Amp\Build\Debug\HSPI_MONOAMP.exe.config
+C:\Users\Mike\source\repos\Amp\Build\Debug\HSPI_MONOAMP.exe
+C:\Users\Mike\source\repos\Amp\Build\Debug\HSPI_MONOAMP.pdb
+C:\Users\Mike\source\repos\Amp\HSPI_MONOAMP\obj\Debug\HSPI_MONOAMP.vbprojAssemblyReference.cache
+C:\Users\Mike\source\repos\Amp\HSPI_MONOAMP\obj\Debug\HSPI_MONOAMP.Resources.resources
+C:\Users\Mike\source\repos\Amp\HSPI_MONOAMP\obj\Debug\HSPI_MONOAMP.vbproj.GenerateResource.cache
+C:\Users\Mike\source\repos\Amp\HSPI_MONOAMP\obj\Debug\HSPI_MONOAMP.vbproj.CoreCompileInputs.cache
+C:\Users\Mike\source\repos\Amp\HSPI_MONOAMP\obj\Debug\HSPI_MONOAMP.vbproj.CopyComplete
+C:\Users\Mike\source\repos\Amp\HSPI_MONOAMP\obj\Debug\HSPI_MONOAMP.exe
+C:\Users\Mike\source\repos\Amp\HSPI_MONOAMP\obj\Debug\HSPI_MONOAMP.pdb

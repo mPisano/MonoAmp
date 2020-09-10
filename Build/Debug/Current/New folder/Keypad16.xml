@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<KeyPad xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>Keypad 16</Name>
+  <ID>16</ID>
+  <PA>0</PA>
+  <PR>0</PR>
+  <MU>0</MU>
+  <DT>0</DT>
+  <VO>0</VO>
+  <TR>0</TR>
+  <BS>0</BS>
+  <BL>0</BL>
+  <CH>0</CH>
+  <LS>0</LS>
+</KeyPad>

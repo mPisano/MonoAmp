@@ -1,0 +1,30 @@
+'Name,  			Updater version, 	File version, 	Notices version
+HomeSeer Updates File,		3.0.0.5,		87,		1
+homeseer.com,anonymous,user@updates,updates3,,,0.0.0.0
+
+'    UC = Use Code, bit 1 = S, bit 2 = PS, bit 4 = HW bit 8 = HomeTroller 16 = Windows 32 = Linux  (bit mapped)
+' 63=all OS's all hardware
+' 31=Windows only all hardware
+' 47=Linux only all hardware
+'    PC = Provider Code,  1 = HS, 2 = 3RD Party
+
+
+%<HS TYPE=CARTURL>http://store.homeseer.com/store/AddToBasket.aspx?ProductId=<SKU>
+
+'the next line is a top level category, if all of these lines are commented out then HS will display only the categories
+'%HomeSeer Updates Line
+' ________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+' Package Name                  Existing Version Info Binary	This Version	 UC PC   Server      Svr Loc      Zip File                      Type     Cost                    			Provider                        License ID              Icon File               Description File                SKU    Learn More   Plugin Name
+' ============================= =============================== ================ == == ============ ============ ============================== ====    ======================  			==============================  ======================= ======================  ==========================================================================
+'%<HS TYPE=SUBCAT>Control Software
+' -------------------------------------------------------------
+
+
+'%Test plugins
+' ________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+' Package Name                  Existing Version Info Binary	This Version	 UC PC   Server      Svr Loc      Zip File                      Type     Cost                    			Provider                        License ID              Icon File               Description File                SKU    Learn More
+' ============================= =============================== ================ == == ============ ============ ============================== ====    ======================  			==============================  ======================= ======================  ==========================================================================
+
+%<HS TYPE=SUBCAT>Test Plugin
+' -------------------------------------------------------------
+MONOPRICE AMP,		HSPI_MONOAMP.exe,			,3.0.0.15,	 63, 1, local,,	HSPI_MONOAMP_1_0_0_0.zip,		4,	Free,						HomeSeer Tech,			X10,			http://homeseer.com/updates3/icons/X10.gif,		http://homeseer.com/updates3/descriptions/X10.htm,,

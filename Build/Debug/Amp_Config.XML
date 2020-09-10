@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ConfigParameters xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ComPort>COM3</ComPort>
+  <RemoveDupes>true</RemoveDupes>
+  <PollMS>1000</PollMS>
+  <Units>1</Units>
+  <WebPort>50230</WebPort>
+  <WebAddress>127.0.0.1</WebAddress>
+  <IPAddress>*</IPAddress>
+  <Sources>
+    <string>TEST</string>
+    <string>Source 2</string>
+    <string>Source 3</string>
+    <string>Source 4</string>
+    <string>Source 5</string>
+    <string>Source 6</string>
+  </Sources>
+  <PolledWait>false</PolledWait>
+  <UseWebApi>false</UseWebApi>
+</ConfigParameters>

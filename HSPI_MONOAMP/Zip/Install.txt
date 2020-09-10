@@ -1,0 +1,2 @@
+HSPI_MONOAMP.exe,.,0
+AmpDll.dll,.,0

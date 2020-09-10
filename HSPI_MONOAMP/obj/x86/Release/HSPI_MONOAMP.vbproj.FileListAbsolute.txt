@@ -1,0 +1,44 @@
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\HSPI_MONOAMP.exe.config
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\HSPI_MONOAMP.exe
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\HSPI_MONOAMP.pdb
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\HSPI_MONOAMP.xml
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\AmpApi.dll
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\AmpConfigDll.dll
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\AmpDll.dll
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\HomeSeerAPI.dll
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\HSCF.dll
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\Scheduler.dll
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\Microsoft.AspNet.SignalR.Core.dll
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\System.Web.Http.dll
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\Owin.dll
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\Microsoft.Owin.Hosting.dll
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\Microsoft.Owin.FileSystems.dll
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\Microsoft.Owin.StaticFiles.dll
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\System.Web.Http.Owin.dll
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\Newtonsoft.Json.dll
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\Microsoft.Owin.dll
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\System.Net.Http.Formatting.dll
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\AmpApi.pdb
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\AmpConfigDll.pdb
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\Microsoft.AspNet.SignalR.Core.xml
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\System.Web.Http.xml
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\Microsoft.Owin.Hosting.xml
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\Microsoft.Owin.FileSystems.xml
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\Microsoft.Owin.StaticFiles.xml
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\System.Web.Http.Owin.xml
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\Newtonsoft.Json.xml
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\Microsoft.Owin.xml
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\System.Net.Http.Formatting.xml
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\es-MX\Scheduler.resources.dll
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\Microsoft.Owin.Security.dll
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\bin\Release\AmpDll.pdb
+C:\Program Files (x86)\HomeSeer HS3\HSPI_MONOAMP.exe.config
+C:\Program Files (x86)\HomeSeer HS3\HSPI_MONOAMP.exe
+C:\Program Files (x86)\HomeSeer HS3\HSPI_MONOAMP.pdb
+C:\Program Files (x86)\HomeSeer HS3\HSPI_MONOAMP.xml
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\obj\x86\Release\HSPI_MONOAMP.Resources.resources
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\obj\x86\Release\HSPI_MONOAMP.vbproj.GenerateResource.Cache
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\obj\x86\Release\HSPI_MONOAMP.exe
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\obj\x86\Release\HSPI_MONOAMP.xml
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\obj\x86\Release\HSPI_MONOAMP.pdb
+C:\Work\Monoprice\AMP_Owin\HSPI_MONOAMP\obj\x86\Release\HSPI_MONOAMP.vbprojResolveAssemblyReference.cache
