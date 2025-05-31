@@ -1,0 +1,471 @@
+@page "/"
+@inject AmpBlazorServer.Services.IAmpControlService AmpService
+@inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+@using Microsoft.AspNetCore.SignalR.Client // Required for HubConnection
+@using Microsoft.Extensions.Logging; // Optional: for more structured logging
+@implements IAsyncDisposable
+
+@if (isLoading)
+{
+    <p>Loading remote control...</p>
+}
+else if (!string.IsNullOrEmpty(generalErrorMessage))
+{
+    <p style="color:red;">Error: @generalErrorMessage</p>
+    <button @onclick="AttemptReconnectAndReload">Retry Connection / Reload Data</button>
+}
+else if (AmpService.IsAmpInitialized)
+{
+    <div style="background-color:black; color:#f6931f; padding: 20px; font-family: Arial, sans-serif;">
+        <h3 style="text-align: center;">Monoprice Amp Control - Blazor</h3>
+
+        <!-- Keypad Selection -->
+        <div style="margin-bottom: 15px; text-align: center;">
+            <button @onclick="KeypadDn" style="margin-right: 5px; padding: 8px 12px;" disabled="@(isLoading || !string.IsNullOrEmpty(generalErrorMessage))">&lt; Prev Keypad</button>
+            <input type="text" readonly @bind="keypadDisplayName" style="width: 250px; text-align:center; background-color:#333; color:#f6931f; border: 1px solid #f6931f; padding: 8px;" />
+            <button @onclick="KeypadUp" style="margin-left: 5px; padding: 8px 12px;" disabled="@(isLoading || !string.IsNullOrEmpty(generalErrorMessage))">Next Keypad &gt;</button>
+        </div>
+
+        <!-- Controls Grid -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom:15px;">
+            <button @onclick="TogglePower" style="padding: 10px;" disabled="@(isLoading || currentKeypad == null || !string.IsNullOrEmpty(generalErrorMessage))">Power</button>
+            <button @onclick="ToggleMute" style="padding: 10px;" disabled="@(isLoading || currentKeypad == null || !string.IsNullOrEmpty(generalErrorMessage))">Mute</button>
+            <button @onclick="SourceDn" style="padding: 10px;" disabled="@(isLoading || currentKeypad == null || !string.IsNullOrEmpty(generalErrorMessage))">Source Prev</button>
+            <button @onclick="SourceUp" style="padding: 10px;" disabled="@(isLoading || currentKeypad == null || !string.IsNullOrEmpty(generalErrorMessage))">Source Next</button>
+            <button @onclick="BassDn" style="padding: 10px;" disabled="@(isLoading || currentKeypad == null || !string.IsNullOrEmpty(generalErrorMessage))">Bass -</button>
+            <button @onclick="BassUp" style="padding: 10px;" disabled="@(isLoading || currentKeypad == null || !string.IsNullOrEmpty(generalErrorMessage))">Bass +</button>
+            <button @onclick="TrebleDn" style="padding: 10px;" disabled="@(isLoading || currentKeypad == null || !string.IsNullOrEmpty(generalErrorMessage))">Treble -</button>
+            <button @onclick="TrebleUp" style="padding: 10px;" disabled="@(isLoading || currentKeypad == null || !string.IsNullOrEmpty(generalErrorMessage))">Treble +</button>
+        </div>
+
+        <!-- Volume Control -->
+        <div style="margin-bottom: 15px; text-align: center;">
+            <div>
+                <button @onclick="VolumeDn" style="margin-right: 5px; padding: 8px 12px;" disabled="@(isLoading || currentKeypad == null || !string.IsNullOrEmpty(generalErrorMessage))">Volume -</button>
+                <button @onclick="VolumeUp" style="margin-left: 5px; padding: 8px 12px;" disabled="@(isLoading || currentKeypad == null || !string.IsNullOrEmpty(generalErrorMessage))">Volume +</button>
+            </div>
+            <input type="range" min="0" max="@maxVolume" @bind="currentVolume" @oninput="SetVolume" style="width:300px; margin-top: 5px;" disabled="@(isLoading || currentKeypad == null || !string.IsNullOrEmpty(generalErrorMessage))" />
+            <div style="margin-top: 5px;">Volume: @currentVolume</div>
+        </div>
+
+        <p style="text-align: center; font-size: 0.9em;">Hub Connection: @(isConnectedToHub ? "Connected" : "Disconnected")</p>
+    </div>
+}
+else
+{
+    <p style="color:orange;">Amplifier is not initialized or not responding. Please check configuration and ensure the Amp is connected.</p>
+    <button @onclick="AttemptReconnectAndReload">Attempt to Reinitialize/Reload</button>
+}
+
+
+@code {
+    private int currentKeypadId = 0;
+    private MPRSG6Z.KeyPad? currentKeypad;
+    private AmpBlazorServer.Models.AmpStateDto? ampState;
+    private string[] sources = new string[6];
+    private string keypadDisplayName = "Loading...";
+    private int currentVolume = 0; // Min volume is 0
+    private int maxVolume = 38;
+    private bool isConnectedToHub = false;
+    private HubConnection? hubConnection;
+
+    private bool isLoading = true;
+    private string? generalErrorMessage = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        isLoading = true; // Start in loading state
+        generalErrorMessage = null;
+
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(NavigationManager.ToAbsoluteUri("/ampcontrolhub"))
+            .Build();
+
+        hubConnection.On<MPRSG6Z.Amp.State>("valueChanged", (ampEvent) =>
+        {
+            if (currentKeypad != null && ampEvent.Keypad.ID == currentKeypad.ID)
+            {
+                currentKeypad = ampEvent.Keypad;
+                currentVolume = currentKeypad.VO;
+                UpdateKeypadDisplayName();
+                InvokeAsync(StateHasChanged);
+            }
+        });
+
+        hubConnection.Closed += async (error) =>
+        {
+            isConnectedToHub = false;
+            generalErrorMessage = "Hub connection closed. Attempting to reconnect...";
+            Console.WriteLine($"Hub connection closed: {error?.Message}");
+            await InvokeAsync(StateHasChanged);
+            await Task.Delay(new Random().Next(0, 5) * 1000); // Optional: random delay before reconnect
+            try
+            {
+                await hubConnection.StartAsync();
+                isConnectedToHub = true;
+                generalErrorMessage = null;
+                Console.WriteLine("Hub reconnected.");
+                await LoadInitialData(); // Refresh data on successful reconnect
+            }
+            catch (Exception ex)
+            {
+                generalErrorMessage = "Failed to reconnect to hub: " + ex.Message;
+                Console.WriteLine($"Failed to reconnect to hub: {ex.Message}");
+            }
+            await InvokeAsync(StateHasChanged);
+        };
+
+        try
+        {
+            await hubConnection.StartAsync();
+            isConnectedToHub = true;
+        }
+        catch (Exception ex)
+        {
+            generalErrorMessage = "Error connecting to SignalR hub: " + ex.Message;
+            isConnectedToHub = false;
+            Console.WriteLine($"Error connecting to SignalR Hub: {ex.Message}");
+        }
+
+        if (isConnectedToHub)
+        {
+            try
+            {
+                var storedKeypadIdString = await JSRuntime.InvokeAsync<string>("getLocalStorage", "currentKeypadId");
+                if (!string.IsNullOrEmpty(storedKeypadIdString))
+                {
+                    if (int.TryParse(storedKeypadIdString, out int parsedId))
+                    {
+                        currentKeypadId = parsedId;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error reading 'currentKeypadId' from local storage: {ex.Message}");
+            }
+            await LoadInitialData();
+        }
+        else
+        {
+            // If hub connection failed, LoadInitialData might also fail or show amp as uninitialized.
+            // Set an appropriate error message if not already set.
+            if (string.IsNullOrEmpty(generalErrorMessage))
+            {
+                 generalErrorMessage = "Cannot load data: Hub not connected.";
+            }
+        }
+
+        isLoading = false;
+        StateHasChanged();
+    }
+
+    async Task LoadInitialData()
+    {
+        isLoading = true; // Show loading indicator during data fetch
+        generalErrorMessage = null; // Clear previous errors
+        StateHasChanged();
+
+        try
+        {
+            ampState = await AmpService.GetAmpStateAsync();
+
+            if (ampState == null || !AmpService.IsAmpInitialized || !ampState.AmpIsRunning)
+            {
+                generalErrorMessage = "Amplifier service not ready or Amp failed to initialize/is not running.";
+                currentKeypad = null;
+                keypadDisplayName = "Error: Amp not available";
+                Console.WriteLine(generalErrorMessage);
+            }
+            else
+            {
+                if (ampState.KeypadCount > 0)
+                {
+                    if (currentKeypadId < 0 || currentKeypadId >= ampState.KeypadCount)
+                    {
+                        Console.WriteLine($"Stored keypad ID {currentKeypadId} is out of bounds (0-{ampState.KeypadCount - 1}). Resetting to 0.");
+                        currentKeypadId = 0;
+                        await JSRuntime.InvokeVoidAsync("setLocalStorage", "currentKeypadId", currentKeypadId.ToString());
+                    }
+                    sources = ampState.Sources ?? new string[6];
+                    currentKeypad = await AmpService.GetKeyPadAsync(currentKeypadId);
+                    if (currentKeypad != null)
+                    {
+                        currentVolume = currentKeypad.VO;
+                    }
+                }
+                else
+                {
+                    currentKeypad = null;
+                    currentKeypadId = 0;
+                    sources = ampState.Sources ?? new string[6];
+                    keypadDisplayName = "No Keypads Configured";
+                    Console.WriteLine("Amp state loaded, but no keypads found.");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            generalErrorMessage = "Error loading initial data: " + ex.Message;
+            Console.WriteLine($"Error loading initial data: {ex.Message}");
+            currentKeypad = null;
+            currentKeypadId = 0;
+        }
+        finally
+        {
+            UpdateKeypadDisplayName();
+            isLoading = false;
+            StateHasChanged();
+        }
+    }
+
+    void UpdateKeypadDisplayName()
+    {
+        if (currentKeypad == null)
+        {
+            if (!string.IsNullOrEmpty(generalErrorMessage)) keypadDisplayName = "Error";
+            else if (!AmpService.IsAmpInitialized) keypadDisplayName = "Amp Not Initialized";
+            else if (ampState != null && ampState.KeypadCount == 0) keypadDisplayName = "No Keypads";
+            else keypadDisplayName = "N/A";
+            return;
+        }
+
+        string statusText;
+        if (currentKeypad.PR == 0) statusText = "Off";
+        else if (currentKeypad.MU == 1) statusText = "Mute";
+        else
+        {
+            if (currentKeypad.CH > 0 && currentKeypad.CH <= sources.Length)
+            {
+                statusText = sources[currentKeypad.CH - 1];
+            }
+            else
+            {
+                statusText = "Unknown Source";
+            }
+        }
+        keypadDisplayName = $"{currentKeypad.Name} : {statusText}";
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection != null)
+        {
+            hubConnection.Closed -= HubConnection_Closed_Handler; // Ensure handler is assignable to a field or property to remove it
+            await hubConnection.DisposeAsync();
+        }
+    }
+    // Need to make the handler a method to be able to remove it.
+    private async Task HubConnection_Closed_Handler(Exception? error)
+    {
+        isConnectedToHub = false;
+        generalErrorMessage = "Hub connection closed. Attempting to reconnect...";
+        Console.WriteLine($"Hub connection closed: {error?.Message}");
+        await InvokeAsync(StateHasChanged);
+        await Task.Delay(new Random().Next(0, 5) * 1000);
+        try
+        {
+            if (hubConnection != null) // hubConnection could be null if DisposeAsync was called
+            {
+                await hubConnection.StartAsync();
+                isConnectedToHub = true;
+                generalErrorMessage = null;
+                Console.WriteLine("Hub reconnected.");
+                await LoadInitialData();
+            }
+        }
+        catch (Exception ex)
+        {
+            generalErrorMessage = "Failed to reconnect to hub: " + ex.Message;
+            Console.WriteLine($"Failed to reconnect to hub: {ex.Message}");
+        }
+        await InvokeAsync(StateHasChanged);
+    }
+    // Modify OnInitializedAsync to use the named handler
+    // This change should be part of the OnInitializedAsync logic rewrite.
+    // For now, I'm defining it. The overwrite will handle putting it in place.
+
+    // --- Keypad Navigation ---
+    async Task KeypadUp()
+    {
+        if (ampState == null || ampState.KeypadCount == 0 || isLoading || !string.IsNullOrEmpty(generalErrorMessage)) return;
+        currentKeypadId = (currentKeypadId + 1) % ampState.KeypadCount;
+        await UpdateCurrentKeypadDataAndSaveSelection();
+    }
+
+    async Task KeypadDn()
+    {
+        if (ampState == null || ampState.KeypadCount == 0 || isLoading || !string.IsNullOrEmpty(generalErrorMessage)) return;
+        currentKeypadId--;
+        if (currentKeypadId < 0)
+        {
+            currentKeypadId = ampState.KeypadCount - 1;
+        }
+        await UpdateCurrentKeypadDataAndSaveSelection();
+    }
+
+    async Task UpdateCurrentKeypadDataAndSaveSelection()
+    {
+        isLoading = true; // Indicate loading for keypad switch
+        await UpdateCurrentKeypadData();
+        try
+        {
+            await JSRuntime.InvokeVoidAsync("setLocalStorage", "currentKeypadId", currentKeypadId.ToString());
+        }
+        catch (Exception ex) { Console.WriteLine($"Error saving 'currentKeypadId' to local storage: {ex.Message}"); }
+        isLoading = false;
+        StateHasChanged();
+    }
+
+    async Task UpdateCurrentKeypadData()
+    {
+        currentKeypad = await AmpService.GetKeyPadAsync(currentKeypadId);
+        if (currentKeypad != null)
+        {
+            currentVolume = currentKeypad.VO;
+        }
+        UpdateKeypadDisplayName();
+        // StateHasChanged(); // Called by wrapper or OnInitializedAsync
+    }
+
+    // --- Control Methods ---
+    private async Task ExecuteAmpCommand(Func<Task> commandAction, string errorMessagePrefix)
+    {
+        if (currentKeypad == null || isLoading || !AmpService.IsAmpInitialized)
+        {
+            generalErrorMessage = "Amp not ready or busy.";
+            return;
+        }
+        generalErrorMessage = null; // Clear previous error
+        isLoading = true; // Optional: indicate busy state for quick commands
+        StateHasChanged();
+        try
+        {
+            await commandAction();
+            // Rely on SignalR "valueChanged" for UI update.
+            // For faster perceived responsiveness, can call RefreshCurrentKeypadState here.
+            // await Task.Delay(100); // Brief delay to allow SignalR to potentially update first
+            // await RefreshCurrentKeypadState(); // Manual refresh
+        }
+        catch (Exception ex)
+        {
+            generalErrorMessage = $"{errorMessagePrefix}: {ex.Message}";
+            Console.WriteLine($"{errorMessagePrefix}: {ex.Message}");
+        }
+        finally
+        {
+            isLoading = false;
+            StateHasChanged();
+        }
+    }
+
+    async Task TogglePower() => await ExecuteAmpCommand(
+        async () => await AmpService.SendUnitCommandAsync(currentKeypad!.ID / 10, currentKeypad!.ID % 10, MPRSG6Z.Command.Power, currentKeypad!.PR == 0 ? 1 : 0),
+        "Error sending Power command");
+
+    async Task ToggleMute() => await ExecuteAmpCommand(
+        async () => await AmpService.SendUnitCommandAsync(currentKeypad!.ID / 10, currentKeypad!.ID % 10, MPRSG6Z.Command.Mute, currentKeypad!.MU == 0 ? 1 : 0),
+        "Error sending Mute command");
+
+    async Task SourceUp() => await ExecuteAmpCommand(
+        async () => {
+            int nextSource = currentKeypad!.CH % sources.Length + 1;
+            await AmpService.SendUnitCommandAsync(currentKeypad!.ID / 10, currentKeypad!.ID % 10, MPRSG6Z.Command.Source, nextSource);
+        }, "Error sending Source Up command");
+
+    async Task SourceDn() => await ExecuteAmpCommand(
+        async () => {
+            int prevSource = (currentKeypad!.CH - 2 + sources.Length) % sources.Length + 1;
+            await AmpService.SendUnitCommandAsync(currentKeypad!.ID / 10, currentKeypad!.ID % 10, MPRSG6Z.Command.Source, prevSource);
+        }, "Error sending Source Down command");
+
+    async Task BassUp() => await ExecuteAmpCommand(async () => await AmpService.SendUnitCommandAsync(currentKeypad!.ID/10, currentKeypad!.ID % 10, MPRSG6Z.Command.Bass, currentKeypad!.BS + 1), "Error Bass Up");
+    async Task BassDn() => await ExecuteAmpCommand(async () => await AmpService.SendUnitCommandAsync(currentKeypad!.ID/10, currentKeypad!.ID % 10, MPRSG6Z.Command.Bass, currentKeypad!.BS - 1), "Error Bass Dn");
+    async Task TrebleUp() => await ExecuteAmpCommand(async () => await AmpService.SendUnitCommandAsync(currentKeypad!.ID/10, currentKeypad!.ID % 10, MPRSG6Z.Command.Treble, currentKeypad!.TR + 1), "Error Treble Up");
+    async Task TrebleDn() => await ExecuteAmpCommand(async () => await AmpService.SendUnitCommandAsync(currentKeypad!.ID/10, currentKeypad!.ID % 10, MPRSG6Z.Command.Treble, currentKeypad!.TR - 1), "Error Treble Dn");
+
+    async Task VolumeUp() => await ExecuteAmpCommand(
+        async () => {
+            if (currentKeypad!.VO >= maxVolume) return;
+            currentVolume = currentKeypad!.VO + 1; // Optimistic update
+            await AmpService.SendUnitCommandAsync(currentKeypad!.ID/10, currentKeypad!.ID % 10, MPRSG6Z.Command.Volume, currentVolume);
+        }, "Error Volume Up");
+
+    async Task VolumeDn() => await ExecuteAmpCommand(
+        async () => {
+            if (currentKeypad!.VO <= 0) return;
+            currentVolume = currentKeypad!.VO - 1; // Optimistic update
+            await AmpService.SendUnitCommandAsync(currentKeypad!.ID/10, currentKeypad!.ID % 10, MPRSG6Z.Command.Volume, currentVolume);
+        }, "Error Volume Dn");
+
+    async Task SetVolume(ChangeEventArgs e)
+    {
+        if (currentKeypad == null || e.Value == null) return;
+        var newVolume = int.Parse(e.Value.ToString() ?? "0");
+        currentVolume = newVolume; // Optimistic update for slider responsiveness
+        await ExecuteAmpCommand(
+            async () => await AmpService.SendUnitCommandAsync(currentKeypad.ID/10, currentKeypad.ID % 10, MPRSG6Z.Command.Volume, newVolume),
+            "Error setting Volume");
+    }
+
+    async Task RefreshCurrentKeypadState() // Not strictly needed if SignalR updates are reliable
+    {
+        if (ampState == null || currentKeypadId >= ampState.KeypadCount || !AmpService.IsAmpInitialized) return;
+        isLoading = true;
+        StateHasChanged();
+        try
+        {
+            currentKeypad = await AmpService.GetKeyPadAsync(currentKeypadId);
+            if (currentKeypad != null)
+            {
+                currentVolume = currentKeypad.VO;
+            }
+            UpdateKeypadDisplayName();
+        }
+        catch (Exception ex)
+        {
+            generalErrorMessage = "Error refreshing keypad state: " + ex.Message;
+        }
+        finally
+        {
+            isLoading = false;
+            StateHasChanged();
+        }
+    }
+
+    async Task AttemptReconnectAndReload() {
+        isLoading = true;
+        generalErrorMessage = null;
+        StateHasChanged();
+
+        if (hubConnection != null && hubConnection.State == HubConnectionState.Disconnected) {
+             try {
+                await hubConnection.StartAsync();
+                isConnectedToHub = true;
+                Console.WriteLine("Hub reconnected via button.");
+            } catch (Exception ex) {
+                generalErrorMessage = "Error connecting to SignalR hub: " + ex.Message;
+                isConnectedToHub = false;
+                Console.WriteLine($"Error reconnecting to SignalR Hub via button: {ex.Message}");
+            }
+        }
+
+        if(isConnectedToHub) { // Attempt to load data only if hub is connected
+             await LoadInitialData(); // This will also attempt to load AmpService state
+        } else if (string.IsNullOrEmpty(generalErrorMessage)) {
+            generalErrorMessage = "Failed to connect to SignalR Hub. Cannot load data.";
+        }
+
+        // If AmpService itself was not initialized, try to re-trigger its initialization or notify user
+        if (!AmpService.IsAmpInitialized && string.IsNullOrEmpty(generalErrorMessage)) {
+            // This is tricky because Program.cs initializes Amp.
+            // A possible strategy: add a re-init method to AmpService or rely on a page refresh after fixing external issues.
+            // For now, LoadInitialData will show the "Amp not initialized" message from the service.
+             generalErrorMessage = "Amplifier service is not initialized. Check logs or try restarting application if error persists.";
+        }
+
+        isLoading = false;
+        StateHasChanged();
+    }
+}

@@ -1,0 +1,13 @@
+/app/AmpDll/obj/Debug/AmpDll.csproj.AssemblyReference.cache
+/app/AmpDll/obj/Debug/MPRSG6Z.Properties.Resources.resources
+/app/AmpDll/obj/Debug/AmpDll.csproj.GenerateResource.cache
+/app/AmpDll/obj/Debug/AmpDll.GeneratedMSBuildEditorConfig.editorconfig
+/app/AmpDll/obj/Debug/AmpDll.csproj.CoreCompileInputs.cache
+/app/Build/Debug/AmpDll.deps.json
+/app/Build/Debug/AmpDll.dll
+/app/Build/Debug/AmpDll.pdb
+/app/AmpDll/obj/Debug/AmpDll.csproj.CopyComplete
+/app/AmpDll/obj/Debug/AmpDll.dll
+/app/AmpDll/obj/Debug/refint/AmpDll.dll
+/app/AmpDll/obj/Debug/AmpDll.pdb
+/app/AmpDll/obj/Debug/ref/AmpDll.dll

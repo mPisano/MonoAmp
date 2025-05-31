@@ -1,0 +1,62 @@
+.navbar-toggler[b-pf622jmtsw] {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.top-row[b-pf622jmtsw] {
+    height: 3.5rem;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.navbar-brand[b-pf622jmtsw] {
+    font-size: 1.1rem;
+}
+
+.oi[b-pf622jmtsw] {
+    width: 2rem;
+    font-size: 1.1rem;
+    vertical-align: text-top;
+    top: -2px;
+}
+
+.nav-item[b-pf622jmtsw] {
+    font-size: 0.9rem;
+    padding-bottom: 0.5rem;
+}
+
+    .nav-item:first-of-type[b-pf622jmtsw] {
+        padding-top: 1rem;
+    }
+
+    .nav-item:last-of-type[b-pf622jmtsw] {
+        padding-bottom: 1rem;
+    }
+
+    .nav-item[b-pf622jmtsw]  a {
+        color: #d7d7d7;
+        border-radius: 4px;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        line-height: 3rem;
+    }
+
+.nav-item[b-pf622jmtsw]  a.active {
+    background-color: rgba(255,255,255,0.25);
+    color: white;
+}
+
+.nav-item[b-pf622jmtsw]  a:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+}
+
+@media (min-width: 641px) {
+    .navbar-toggler[b-pf622jmtsw] {
+        display: none;
+    }
+
+    .collapse[b-pf622jmtsw] {
+        /* Never collapse the sidebar for wide screens */
+        display: block;
+    }
+}

@@ -32,7 +32,7 @@ namespace MPRSG6Z
 
         private void UpdateState()
         {
-            Amp.currentState = new XmitStatusState(this);
+            Amp.currentState = new XmitCmdState(this);
         }
     }
 }

@@ -1,0 +1,10 @@
+/app/Build/Debug/AmpConfigDll.deps.json
+/app/Build/Debug/AmpConfigDll.dll
+/app/Build/Debug/AmpConfigDll.pdb
+/app/AmpConfigDll/obj/Debug/AmpConfigDll.csproj.AssemblyReference.cache
+/app/AmpConfigDll/obj/Debug/AmpConfigDll.GeneratedMSBuildEditorConfig.editorconfig
+/app/AmpConfigDll/obj/Debug/AmpConfigDll.csproj.CoreCompileInputs.cache
+/app/AmpConfigDll/obj/Debug/AmpConfigDll.dll
+/app/AmpConfigDll/obj/Debug/refint/AmpConfigDll.dll
+/app/AmpConfigDll/obj/Debug/AmpConfigDll.pdb
+/app/AmpConfigDll/obj/Debug/ref/AmpConfigDll.dll
