@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmpDll", "AmpDll\AmpDll.csproj", "{1BAAB9D4-EBFE-4648-870C-BE17FE90EB9F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmpDll", "AmpDll.v3\AmpDll.csproj", "{1BAAB9D4-EBFE-4648-870C-BE17FE90EB9F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmpMixer", "AmpMixer\AmpMixer.csproj", "{71F98731-E464-42B7-843C-E97D2979A5CD}"
 EndProject
